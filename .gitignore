@@ -18,6 +18,11 @@ nytprof.out
 *.o
 *.bs
 
+# PHP libraries
+vendor/
+*.lock
+
+
 UserSettings.php
 oauth.txt
 recap.txt
