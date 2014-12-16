@@ -1,0 +1,6 @@
+{
+    "require": {
+        "guzzlehttp/guzzle": "~4.0",
+        "guzzlehttp/oauth-subscriber": "0.1.*"
+    }
+}
