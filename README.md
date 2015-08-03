@@ -27,25 +27,42 @@ Setup Instructions
 		[PHP_OAUTH]
 		extension=php_oauth.dll
 		
-   Linux hosts
+   Linux and OSX hosts
 		[PHP_OAUTH]
 		extension=oauth.so
+```
 
- Getting the PHP oauth extension:
-   Windows - You can get precompiled php_oauth.dll for Windows from:
+Getting the PHP oauth extension:
+   * Windows - You can get precompiled php_oauth.dll for Windows from:
      http://windows.php.net/downloads/pecl/releases/oauth/1.2.3/
-   Linux - On Debian host console (or remotely using putty/ssh)
+   * Linux - On Debian host console (or remotely using putty/ssh)
+     ```
      pecl install oauth
+     
      <may need to install pcre headers (debian based)>
      <apt-get install libpcre3-dev>
      service apache2 restart
-   Linux - On Fedora host console (or remotely using putty/ssh)
+     ```
+   * Linux - On Fedora host console (or remotely using putty/ssh)
+     ```
      pecl install -R /usr/lib/php oauth-0.99.9
+     
      restart apache
-   Linux - On CentOS host console (or remotely using putty/ssh)
+     ```
+   * Linux - On CentOS host console (or remotely using putty/ssh)
+     ```
      pecl install oauth
+     
      server httpd restart
-```
+     ```
+   * OSX <br />
+     Assuming you got PEAR, the XCode5 Command Line Tools, pecl and autoconf installed 
+     ```
+     brew install pcre
+     
+     sudo pecl install oauth
+     ```
+
 2. Install Composer
   1. go to your 'PHP' install directory,
   2. create a Composer directory (i.e. mkdir Composer)
