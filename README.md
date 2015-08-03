@@ -22,46 +22,45 @@ Setup Instructions
   2. after installing PHP on your system, you may need to install the php_oauth extension if your 
       distribution does not yet include it. Copy the dll into your PHP extension folder (I.e.: <PHP folder>\ext)
       and add the following lines in your php.ini 
-```
-   Windows
+      ```
+      Windows
 		[PHP_OAUTH]
 		extension=php_oauth.dll
 		
-   Linux and OSX hosts
+      Linux and OSX hosts
 		[PHP_OAUTH]
 		extension=oauth.so
-```
-
-Getting the PHP oauth extension:
-   * Windows - You can get precompiled php_oauth.dll for Windows from:
-     http://windows.php.net/downloads/pecl/releases/oauth/1.2.3/
-   * Linux - On Debian host console (or remotely using putty/ssh)
-     ```
-     pecl install oauth
+      ```
+      Getting the PHP oauth extension:
+      * Windows - You can get precompiled php_oauth.dll for Windows from: <br />
+        http://windows.php.net/downloads/pecl/releases/oauth/1.2.3/
+      * Linux - On Debian host console (or remotely using putty/ssh)
+        ```
+        pecl install oauth
      
-     <may need to install pcre headers (debian based)>
-     <apt-get install libpcre3-dev>
-     service apache2 restart
-     ```
-   * Linux - On Fedora host console (or remotely using putty/ssh)
-     ```
-     pecl install -R /usr/lib/php oauth-0.99.9
-     
-     restart apache
-     ```
-   * Linux - On CentOS host console (or remotely using putty/ssh)
-     ```
-     pecl install oauth
-     
-     server httpd restart
-     ```
-   * OSX <br />
-     Assuming you got PEAR, the XCode5 Command Line Tools, pecl and autoconf installed 
-     ```
-     brew install pcre
-     
-     sudo pecl install oauth
-     ```
+        <may need to install pcre headers (debian based)>
+        <apt-get install libpcre3-dev>
+        service apache2 restart
+        ```
+      * Linux - On Fedora host console (or remotely using putty/ssh)
+        ```
+        pecl install -R /usr/lib/php oauth-0.99.9
+      
+        restart apache
+        ```
+      * Linux - On CentOS host console (or remotely using putty/ssh)
+        ```
+        pecl install oauth
+      
+        server httpd restart
+        ```
+      * OSX <br />
+        Assuming you got PEAR, the XCode5 Command Line Tools, pecl and autoconf installed 
+        ```
+        brew install pcre
+      
+        sudo pecl install oauth
+        ```
 
 2. Install Composer
   1. go to your 'PHP' install directory,
