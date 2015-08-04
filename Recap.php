@@ -123,6 +123,7 @@ if ( isset ($options ['c']) ) {
 				echo "Error: missing argument -p or -w, see help for details\n" ;
 				exit ;
 			}
+			//var_dump ($options) ; exit ;
 			if ( empty ($photosceneid) ) {
 				echo "You need to specify a Photoscene ID\n" ;
 				exit ;
@@ -319,9 +320,11 @@ function UploadPhotos ($photosceneid, $filesref) {
 
 function UploadPhotosFromWEB ($photosceneid, $filesref) {
 	global $recap ;
+	$filesref =explode (' ', $filesref) ;
 	$files =array () ;
-	$files ['file[0]'] =$filesref ; //- Local files
-	//var_dump ($files) ;
+	foreach ( $filesref as $img )
+		$files ['file[' . count ($files) . ']'] =$img ;
+	//var_dump ($files) ; exit ;
 	if ( $recap->UploadFiles ($photosceneid, $files)  == false ) {
 		echo "file - Failed to get a valid response from the ReCap server!\n" ;
 		exit ;
