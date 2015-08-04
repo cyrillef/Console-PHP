@@ -21,15 +21,17 @@
  
  */
 
-define ('DEFAULT_BROWSER' ,'"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" ') ;
+define ('DEFAULT_BROWSER', '"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" ') ; // Windows
+//define ('DEFAULT_BROWSER', '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome ') ; // OSX
+//define ('DEFAULT_BROWSER', 'google-chrome') ; // Linux
 
 // Hard coded consumer and secret keys and base URL.
 // In real world Apps, these values need to secured.
 // One approach is to encrypt and/or obfuscate these values
 define ('CONSUMER_KEY', 'your consumer key') ;
 define ('CONSUMER_SECRET', 'your consumer secret key') ;
-define ('O2_HOST', 'https://accounts.autodesk.com/') ; // Autodesk production accounts server
-//define ('O2_HOST', 'https://accounts-staging.autodesk.com/') ; // Autodesk staging accounts server
+define ('OAUTH_HOST', 'https://accounts.autodesk.com/') ; // Autodesk production accounts server
+//define ('OAUTH_HOST', 'https://accounts-staging.autodesk.com/') ; // Autodesk staging accounts server
 
 // ReCap: Fill in these macros with the correct information (only the 2 first are important)
 define ('ReCapAPIURL', 'http://rc-api-adn.autodesk.com/3.1/API/') ;
@@ -40,10 +42,10 @@ define ('ReCapUserID', 'your ReCap user ID') ; // Needed only for using the ReCa
 define ('Email', 'your email address')  ; // used for notification
 
 // Do not edit
-define ('O2_REQUESTTOKEN', O2_HOST . 'OAuth/RequestToken') ;
-define ('O2_ACCESSTOKEN', O2_HOST . 'OAuth/AccessToken') ;
-define ('O2_AUTHORIZE', O2_HOST . 'OAuth/Authorize') ;
-define ('O2_INVALIDATETOKEN', O2_HOST . 'OAuth/InvalidateToken') ;
-define ('O2_ALLOW', O2_HOST . 'OAuth/Allow') ;
+define ('OAUTH_REQUESTTOKEN', OAUTH_HOST . 'OAuth/RequestToken') ;
+define ('OAUTH_ACCESSTOKEN', OAUTH_HOST . 'OAuth/AccessToken') ;
+define ('OAUTH_AUTHORIZE', OAUTH_HOST . 'OAuth/Authorize') ;
+define ('OAUTH_INVALIDATETOKEN', OAUTH_HOST . 'OAuth/InvalidateToken') ;
+define ('OAUTH_ALLOW', OAUTH_HOST . 'OAuth/Allow') ;
 
 ?>

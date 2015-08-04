@@ -254,6 +254,23 @@ class AdskReCap {
 		return ($this->isOk ()) ;
 	}
 
+	public function DownloadPhoto ($photosceneid, $photoid, $json =false) {
+		$this->_lastResponse =$this->_Client->get (
+			"file/{$photoid}/get",
+			[ 'query' => [
+				'clientID' => $this->_clientID,
+				'fileid' => $photoid,
+				'type' => 'image',
+				($json == true ? 'json' : 'xml') => 1,
+			]
+			// , 'config' => [ 'curl' => [ CURLOPT_PROXY => '127.0.0.1:8888' ] ]
+			]
+		) ;
+		if ( $this->_outputlog == true )
+			$this->NSLog ("(get) file/.../get raw response: ", $this->_lastResponse) ;
+		return ($this->isOk ()) ;
+	}
+	
 	public function DeleteScene ($photosceneid, $json =false) {
 		$request =$this->_Client->createRequest (
 			'DELETE',

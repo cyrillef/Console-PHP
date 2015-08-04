@@ -28,9 +28,9 @@ require_once ('oAuth4ReCap.php') ;
 require_once ('AdskReCap.php') ;
 
 // http://www.php.net/manual/en/function.getopt.php
-$options =getopt("c:i:p:rdh") ; //var_dump ($options) ;
+$options =getopt("c:i:p:w:rdh") ; //var_dump ($options) ;
 if ( array_key_exists ('h', $options) !== false ) {
-	echo "\nUsage:    ReCap [-d] [-r] [-h] [-i photosceneid] [-c command] [-p photo(s)]   \n" ;
+	echo "\nUsage:    ReCap [-d] [-r] [-h] [-i photosceneid] [-c command] [-p/-w photo(s)]   \n" ;
 	
 	echo "\n-r\tRefresh Access token only\n" ;
 	echo "-d\tDebug mode. Display the RESTful response\n" ;
@@ -43,10 +43,14 @@ if ( array_key_exists ('h', $options) !== false ) {
 	echo "\t   release - Release the current photosceneid\n" ;
 	echo "\t   list - List all photoscenes present on your account\n" ;
 	echo "\t   properties - Displays current Photoscene properties\n" ;
-	echo "\t   upload - Upload photo(s) on your current Photoscene - requires -p option (could be a single file, a folder, or a search string)\n" ;
+	echo "\t   upload - Upload photo(s) on your current Photoscene\n" ;
+	echo "\t          - requires either -p or -w options\n" ;
+	echo "\t            -p option: could be a single file, a folder, or a search string\n" ;
+	echo "\t            -w option: a ftp or http reference\n" ;
 	echo "\t   start - Launch your Photoscene\n" ;
 	echo "\t   progress - Report progress on processing the Photoscene\n" ;
 	echo "\t   result - Get the result\n" ;
+	echo "\t   photo - d/l a resource (i.e. photo) - requires -p option\n" ;
 	echo "\t   delete - Delete the Photoscene and resources from server\n" ;
 	
 	echo "-h\tHelp - this message\n" ;
@@ -115,8 +119,8 @@ if ( isset ($options ['c']) ) {
 			GetSceneProperties ($photosceneid) ;
 			break ;
 		case 'upload':
-			if ( !isset ($options ['p']) ) {
-				echo "Error: missing argument -p, see help for details\n" ;
+			if ( !isset ($options ['p']) && !isset ($options ['w']) ) {
+				echo "Error: missing argument -p or -w, see help for details\n" ;
 				exit ;
 			}
 			if ( empty ($photosceneid) ) {
@@ -124,7 +128,10 @@ if ( isset ($options ['c']) ) {
 				exit ;
 			}
 			echo "Working with ReCap Photoscene: {$photosceneid}\n" ;
-			UploadPhotos ($photosceneid, $options ['p']) ;
+			if ( isset ($options ['p']) )
+				UploadPhotos ($photosceneid, $options ['p']) ;
+			else
+				UploadPhotosFromWEB ($photosceneid, $options ['w']) ;
 			break ;
 		case 'start':
 			echo "Working with ReCap Photoscene: {$photosceneid}\n" ;
@@ -149,6 +156,18 @@ if ( isset ($options ['c']) ) {
 				exit ;
 			}
 			GetSceneResult ($photosceneid) ;
+			break ;
+		case 'photo':
+			if ( !isset ($options ['p']) ) {
+				echo "Error: missing argument -p, see help for details\n" ;
+				exit ;
+			}
+			if ( empty ($photosceneid) ) {
+				echo "You need to specify a Photoscene ID\n" ;
+				exit ;
+			}
+			echo "Working with ReCap Photoscene: {$photosceneid}\n" ;
+			DownloadPhoto ($photosceneid, $options ['p']) ;
 			break ;
 		case 'delete':
 			echo "Working with ReCap Photoscene: {$photosceneid}\n" ;
@@ -298,6 +317,23 @@ function UploadPhotos ($photosceneid, $filesref) {
 	}
 }
 
+function UploadPhotosFromWEB ($photosceneid, $filesref) {
+	global $recap ;
+	$files =array () ;
+	$files ['file[0]'] =$filesref ; //- Local files
+	//var_dump ($files) ;
+	if ( $recap->UploadFiles ($photosceneid, $files)  == false ) {
+		echo "file - Failed to get a valid response from the ReCap server!\n" ;
+		exit ;
+	}
+	echo "File(s) uploaded:\n" ;
+	$xml =$recap->xml () ;
+	$xpath =$xml->xpath ("Files/file") ;
+	foreach ( $xpath as $node ) {
+		echo "\t{$node->filename} [{$node->fileid}]\n" ;
+	}
+}
+	
 function LaunchScene ($photosceneid) {
 	global $recap ;
 	if ( $recap->ProcessScene ($photosceneid) == false ) {
@@ -329,6 +365,22 @@ function GetSceneResult ($photosceneid) {
 	$report =file_get_contents ($xml->Photoscene->scenelink) ;
 	file_put_contents ($photosceneid . ".zip", $report) ;
 	echo "PhotoScene saved into: ${photosceneid}.zip\n" ;
+}
+	
+function DownloadPhoto ($photosceneid, $filesref) {
+	global $recap ;
+	if ( $recap->DownloadPhoto ($photosceneid, $filesref)  == false ) {
+		echo "file - Failed to get a valid response from the ReCap server!\n" ;
+		exit ;
+	}
+	echo "File download information:\n" ;
+	$xml =$recap->xml () ;
+	//var_dump ($xml) ;
+	$xpath =$xml->xpath ("Files/file") ;
+	foreach ( $xpath as $node ) {
+		echo "\t{$node->filename} - {$node->filesize}\n" ;
+		echo "\t\t{$node->filelink}\n" ;
+	}
 }
 
 function DeleteScene ($photosceneid) {
