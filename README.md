@@ -76,9 +76,11 @@ Setup Instructions
   1. copy UserSettings_.php into UserSettings.php
   2. edit UserSettings.php, and replace the following key strings with appropriate value
      * CONSUMER_KEY
-	 * CONSUMER_SECRET
-	 * ReCapClientID
-	 * Email
+     * CONSUMER_SECRET
+     * ReCapClientID
+     * Email
+  3. edit UserSettings.php, and edit the DEFAULT_BROWSER constant with your prefered OS browser
+     to use for authentication.
 
 5. If you wish to use Fiddler to debug Guzzle Curl requests, add the following option to each Guzzle call
 ```
