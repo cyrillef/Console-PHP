@@ -201,7 +201,55 @@ class AdskReCap {
 		)) ;
 		foreach ( $files as $name => $file )
 			$body->addFile (new PostFile ($name, fopen ($file, 'r'))) ;
-		$this->_lastResponse =$this->_Client->send ($request) ;
+		try {
+			$this->_lastResponse =$this->_Client->send ($request) ;
+		} catch (Exception $e) {
+			$this->_lastResponse =null ;
+			echo 'Exception: ',  $e->getMessage (), "\n" ;
+			return (false) ;
+		}
+		if ( $this->_outputlog == true )
+			$this->NSLog ("file raw response: ", $this->_lastResponse) ;
+		return ($this->isOk ()) ;
+	}
+
+	public function UploadFileReferences ($photosceneid, $files, $json =false) {
+		// ReCap returns the following if no file uploaded (or referenced), setup an error instead
+		//<Response>
+		//        <Usage>0.81617307662964</Usage>
+		//        <Resource>/file</Resource>
+		//        <photosceneid>  your scene ID  </photosceneid>
+		//        <Files>
+		//
+		//        </Files>
+		//</Response>
+		if ( $files == null || count ($files) == 0 ) {
+			$this->_lastResponse =null ;
+			return (false) ;
+		}
+		$request =$this->_Client->createRequest (
+			'POST',
+			'file'
+			//, [ 'config' => [ 'curl' => [ CURLOPT_PROXY => '127.0.0.1:8888' ] ] ]
+		) ;
+		$body =$request->getBody () ;
+		$body->forceMultipartUpload (true) ;
+		$body->replaceFields (array (
+			'clientID' => $this->_clientID,
+			//($json == true ? 'json' : 'xml') => 1,
+			'photosceneid' => $photosceneid,
+			'type' => 'image',
+		)) ;
+		foreach ( $files as $name => $file )
+			//$body->addFile (new PostFile ($name, fopen ($file, 'r'))) ;
+			$body->setField ($name, $file) ;
+		try {
+			$this->_lastResponse =$this->_Client->send ($request) ;
+		} catch (Exception $e) {
+			$this->_lastResponse =null ;
+			echo 'Exception: ',  $e->getMessage (), "\n" ;
+			return (false) ;
+		}
 		if ( $this->_outputlog == true )
 			$this->NSLog ("file raw response: ", $this->_lastResponse) ;
 		return ($this->isOk ()) ;

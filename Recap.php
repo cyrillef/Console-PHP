@@ -325,7 +325,7 @@ function UploadPhotosFromWEB ($photosceneid, $filesref) {
 	foreach ( $filesref as $img )
 		$files ['file[' . count ($files) . ']'] =$img ;
 	//var_dump ($files) ; exit ;
-	if ( $recap->UploadFiles ($photosceneid, $files)  == false ) {
+	if ( $recap->UploadFileReferences ($photosceneid, $files)  == false ) {
 		echo "file - Failed to get a valid response from the ReCap server!\n" ;
 		exit ;
 	}
