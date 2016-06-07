@@ -60,7 +60,7 @@ if ( array_key_exists ('h', $options) !== false ) {
 //- Get & Refresh our access tokens (always)
 $fname =realpath(dirname(__FILE__)) . '/oauth.txt' ;
 if ( !file_exists ($fname) ) {
-	echo "OAuth\nYou need to log first using the oAuthLoh.php script \n" ;
+	echo "OAuth\nYou need to log first using the oAuthLog.php script \n" ;
 	exit ;
 }
 include ('oAuthRefresh.php') ;

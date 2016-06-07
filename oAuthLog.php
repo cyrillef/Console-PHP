@@ -24,14 +24,14 @@
  
 */
 require_once ('UserSettings.php') ;
+echo "Initiating Login...\n" ;
 
 //- Oxygen
 $token ='' ;
 $access ='' ;
-
 //- Prepare the PHP OAuth for consuming our Oxygen service
 //- Disable the SSL check to avoid an exception with invalidate certificate on the server
-$oauth =new OAuth (CONSUMER_KEY, CONSUMER_SECRET, OAUTH_SIG_METHOD_HMACSHA1, OAUTH_AUTH_TYPE_URI) ;
+$oauth = new OAuth (CONSUMER_KEY, CONSUMER_SECRET, OAUTH_SIG_METHOD_HMACSHA1, OAUTH_AUTH_TYPE_URI) ;
 $oauth->enableDebug () ;
 $oauth->disableSSLChecks () ;
 
@@ -93,3 +93,4 @@ try {
 exit ;
 
 ?>
+

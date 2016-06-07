@@ -1,22 +1,29 @@
- The PHP Console sample
-=====================
+# Autodesk Reality Capture API -- PHP Console sample
+-------------------
+[![language](https://img.shields.io/badge/language-PHP-blue.svg)](https://www.visualstudio.com/)
+[![ReCap](https://img.shields.io/badge/Reality%20Capture%20API-v3.1%20-green.svg)](http://developer-recap-autodesk.github.io/)
+![Platforms](https://img.shields.io/badge/platform-windows%20%7C%20osx%20%7C%20linux-lightgray.svg)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://opensource.org/licenses/MIT)
+
 
 This sample is a command line sample where you control the various ReCap stage individually using one of the command below.
 
 <b>Note:</b> For using those samples you need a valid oAuth credential and a ReCap client ID. Visit this [page](http://developer-recap-autodesk.github.io/) for instructions to get on-board.
 
+## Motivation
+The Reality Capture API Beta provides a web service to create textured mesh from a set of photos, and can request an automatic 3D calibration. The REST API provides a similar service as the [Autodesk ReCap 360](http://www.autodesk.com/products/recap-360/overview) web application. The purpose of this sample is to show an application that can provide a Reality Capture work flow using photographic images.
 
-Dependencies
---------------------
+## Description
+This sample uses PHP to demonstrate how to use the Reality Capture API.
+
+## Dependencies
 This sample is dependent of the following 3rd party extensions:
 
 * The PHP [oAuth extension](http://php.net/manual/en/book.oauth.php)
 * The [Guzzle PHP](https://github.com/guzzle/guzzle) extension, document [here](http://guzzle.readthedocs.org/en/latest/)
 
 
-Setup Instructions
--------------------------
-
+## Setup Instructions
 1. Install PHP 5.4.0+ 
   1. make sure to include the openssl and curl extensions in your php.ini
   2. after installing PHP on your system, you may need to install the php_oauth extension if your 
@@ -33,7 +40,7 @@ Setup Instructions
       ```
       Getting the PHP oauth extension:
       * Windows - You can get precompiled php_oauth.dll for Windows from: <br />
-        http://windows.php.net/downloads/pecl/releases/oauth/1.2.3/
+        http://windows.php.net/downloads/pecl/releases/oauth (make sure to pick version compatible with your PHP version)
       * Linux - On Debian host console (or remotely using putty/ssh)
         ```
         pecl install oauth
@@ -55,7 +62,7 @@ Setup Instructions
         server httpd restart
         ```
       * OSX <br />
-        Assuming you got PEAR, the XCode5 Command Line Tools, pecl and autoconf installed 
+        Assuming you are using PEAR, the XCode5 Command Line Tools, pecl and autoconf installed 
         ```
         brew install pcre
       
@@ -73,7 +80,7 @@ Setup Instructions
   2. execute 'php composer.phar install'
   
 4. Configure the sample
-  1. copy UserSettings_.php into UserSettings.php
+  1. copy UserSettings_.php to UserSettings.php
   2. edit UserSettings.php, and replace the following key strings with appropriate value
      * CONSUMER_KEY
      * CONSUMER_SECRET
@@ -90,8 +97,7 @@ Setup Instructions
    http://guzzle.readthedocs.org/en/latest/faq.html#how-can-i-add-custom-curl-options  
    http://docs.telerik.com/fiddler/configure-fiddler/tasks/configurephpcurl
 	 
-Usage Instructions
--------------------------
+## Usage Instructions
 
 Log on the Autodesk oAuth server using the oAuthLog.php script, i.e:
 
@@ -119,7 +125,7 @@ Usage:    ReCap [-d] [-r] [-h] [-i photosceneid] [-c command] [-p photo(s)]
 	-h	Help - this message
 ```
 
-Typical scenario:
+#### Typical scenario:
 ```
 php -f oAuthLog.php
 php -f ReCap.php -- -c create
@@ -127,21 +133,20 @@ php -f ReCap.php -- -c upload -p ../Examples/Tirelire
 php -f ReCap.php -- -c properties
 php -f ReCap.php -- -c start
 php -f ReCap.php -- -c progress
-
+```
 once 'progress' reports no error and completion at 100%
-
+```
 php -f ReCap.php -- -c properties
 php -f ReCap.php -- -c result
 ```
 
---------
 
 ## License
 
 This sample is licensed under the terms of the [MIT License](http://opensource.org/licenses/MIT). Please see the [LICENSE](LICENSE) file for full details.
 
 
-## Written by
+## Credits
 
 Cyrille Fauvel (Autodesk Developer Network)  
 http://www.autodesk.com/adn  
