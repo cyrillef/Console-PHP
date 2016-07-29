@@ -1,10 +1,14 @@
-# Autodesk Reality Capture API -- PHP Console sample
--------------------
+This sample is deprecated as there is a new API for ReCap
+=======================
+Go to https://developer.autodesk.com/en/docs/reality-capture/v1/overview/ for more information
+
 [![language](https://img.shields.io/badge/language-PHP-blue.svg)](https://www.visualstudio.com/)
 [![ReCap](https://img.shields.io/badge/Reality%20Capture%20API-v3.1%20-green.svg)](http://developer-recap-autodesk.github.io/)
 ![Platforms](https://img.shields.io/badge/platform-windows%20%7C%20osx%20%7C%20linux-lightgray.svg)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://opensource.org/licenses/MIT)
 
+# Autodesk Reality Capture API -- PHP Console sample
+-------------------
 
 This sample is a command line sample where you control the various ReCap stage individually using one of the command below.
 
